@@ -1,10 +1,11 @@
-<script setup>
+<script setup lang="ts">
 
 </script>
 
 <template>
-  <h2>task-filters</h2>
+  <h3>task-row</h3>
 </template>
 
 <style scoped>
+
 </style>

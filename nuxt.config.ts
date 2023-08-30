@@ -2,6 +2,7 @@
 // @ts-ignore
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  modules: ['@pinia/nuxt'],
 // @ts-ignore
   vite: {
     css: {
