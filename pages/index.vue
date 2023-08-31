@@ -1,7 +1,14 @@
 <script setup>
-import { taskModel } from '@/entities/task';
-import { TaskFilters } from '@/features/task-filters';
-import { ToggleTask } from '@/features/toggle-task';
+import { LayoutContent, Row, Col, Spin, Empty } from 'ant-design-vue';
+
+import { taskModel, TaskRow } from '@/entities/task';
+import { TaskFilters } from '@/features/task/task-filters';
+import { ToggleTask } from '@/features/task/task-toggle';
+
+const taskStore = taskModel.useTaskStore();
+const isListLoading = computed(() => taskStore.isListLoading)
+const isTasksListEmpty = computed(() => taskStore.isTasksListEmpty);
+const filteredTasks = computed(() => taskStore.filteredTasks)
 
 const store = taskModel.useTaskStore();
 store.getTasksListAsync();
@@ -10,20 +17,27 @@ store.getTasksListAsync();
 
 <template>
   <NuxtLayout>
-    <task-filters />
-    <ul>
-      <li>
-        <toggle-task />
-      </li>
-      <li>
-        <toggle-task />
-      </li>
-    </ul>
+    <Row justify="center">
+      <TaskFilters />
+    </Row>
+    <LayoutContent>
+      <Row :gutter="[0, 20]" justify="center">
+        <Spin v-if="isListLoading" size="large" />
+        <Empty v-else-if="isTasksListEmpty" description="No tasks found" />
+        <template v-else v-for="task in filteredTasks" :key="task.id">
+          <Col :span="24">
+            <TaskRow :data="task" :titleHref="`/${task.id}`">
+              <template v-slot:before>
+                <ToggleTask :taskId='task.id' :withStatus='false' />
+              </template>
+            </TaskRow>
+          </Col>
+        </template>
+      </Row>
+    </LayoutContent>
   </NuxtLayout>
 </template>
 
 <style scoped lang="scss">
-.color {
-  color: $primary;
-}
+.color {}
 </style>

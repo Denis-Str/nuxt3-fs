@@ -20,7 +20,6 @@ export const useTaskStore = defineStore('task', {
       this.isListLoading = true;
       try {
         this.data = await typicodeApi.tasks.getTasksList();
-        // this.data = data;
       } catch (e) {
         console.log(e);
       } finally {

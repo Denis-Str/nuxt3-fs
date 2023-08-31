@@ -1,11 +1,22 @@
-<template>
-  <div>
-    <h1 class="color">Tasks list</h1>
-    <slot />
-  </div>
-</template>
 <script setup>
+import { Layout, Row, TypographyTitle } from 'ant-design-vue';
+
   useHead({
   title: 'Nuxt 3 FSD',
 })
 </script>
+
+<template>
+  <Layout class="default-layout-component">
+    <Row justify="center">
+      <TypographyTitle :level="1">Tasks list</TypographyTitle>
+    </Row>
+    <slot />
+  </Layout>
+</template>
+
+<style scoped>
+.default-layout-component {
+  min-height: 100%;
+}
+</style>

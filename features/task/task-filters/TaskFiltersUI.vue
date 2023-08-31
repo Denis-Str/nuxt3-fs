@@ -3,11 +3,11 @@ import { RadioButton, RadioGroup } from 'ant-design-vue';
 import { taskModel } from '@/entities/task';
 import { filtersList, getFilterById, DEFAULT_FILTER } from './config';
 
-const store = taskModel.useTaskStore();
-const isListLoading = computed(() => store.isListLoading);
+const taskStore = taskModel.useTaskStore();
+const isListLoading = computed(() => taskStore.isListLoading);
 const defaultFilter = ref(DEFAULT_FILTER);
 
-const onFilterClick = (id) => store.$patch({ queryConfig: getFilterById(id).config });
+const onFilterClick = (id) => taskStore.$patch({ queryConfig: getFilterById(id).config });
 
 </script>
 
