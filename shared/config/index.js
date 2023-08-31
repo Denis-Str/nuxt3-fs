@@ -15,7 +15,7 @@ const getEnvVar = key => {
 };
 
 /** API entrypoint */
-export const API_URL = getEnvVar("VITE_APP_API_URL");
+export const API_URL = getEnvVar("NUXT_PUBLIC_API_BASE");
 
 /** Режим запуска программы */
 /** Режим разработки */

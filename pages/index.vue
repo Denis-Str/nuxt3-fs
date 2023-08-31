@@ -4,6 +4,8 @@ import { TaskFilters } from '@/features/task-filters';
 import { ToggleTask } from '@/features/toggle-task';
 
 const store = taskModel.useTaskStore();
+store.getTasksListAsync();
+
 </script>
 
 <template>
