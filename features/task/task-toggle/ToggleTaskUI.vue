@@ -3,11 +3,9 @@ import { Checkbox } from 'ant-design-vue';
 import { taskModel, taskLib } from '@/entities/task';
 const taskStore = taskModel.useTaskStore();
 
-import { computed } from 'vue';
 const props = defineProps({
   data: {
     type: Object,
-    required: true,
     default: () => ({
       id: '',
       completed: false,
@@ -16,18 +14,14 @@ const props = defineProps({
     }),
   }
 });
-const { data: { id, completed } } = props;
-const task = computed(() => taskStore.data[id]);
-const isTaskCompleted = computed(() => completed)
-const status = computed(() => taskLib.getTaskStatus(completed));
-
-// const toggleTask = () => store.commit(taskModel.mutations.toggleTask, taskId.value);
-const onToggleTask = () => taskStore.toggleTask(task, id);
+const task = computed(() => taskStore.data[props.data.id]);
+const isTaskCompleted = computed(() => task.value.completed);
+const status = computed(() => taskLib.getTaskStatus(task.value));
+const onToggleTask = () => taskStore.toggleTask({ ...props.data });
 </script>
 
 <template>
   <Checkbox @click="onToggleTask" :checked="isTaskCompleted">
-    {{ task }}
     <template v-if="isTaskCompleted">{{status}}</template>
   </Checkbox>
 </template>

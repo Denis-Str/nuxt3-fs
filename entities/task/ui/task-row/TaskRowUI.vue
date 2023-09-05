@@ -1,10 +1,17 @@
 <script setup>
 import { Row } from 'ant-design-vue';
+import { taskModel } from '@/entities/task';
+const taskStore = taskModel.useTaskStore();
 
 const props = defineProps({
   data: {
     type: Object,
-    default: () => ({}),
+    default: () => ({
+      id: '',
+      completed: false,
+      title: '',
+      value: '',
+    }),
   },
   titleHref: {
     type: String,
@@ -12,11 +19,13 @@ const props = defineProps({
   }
 });
 const { data, titleHref } = props;
+const task = computed(() => taskStore.data[props.data.id]);
+const isTaskCompleted = computed(() => task.value.completed)
 
 </script>
 
 <template>
-  <Row :class="['root', { 'completed': data?.completed }]">
+  <Row :class="['root', { 'completed': isTaskCompleted }]">
     <div class="margin-before">
       <slot name="before" />
     </div>
