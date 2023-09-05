@@ -1,2 +1,2 @@
-import TaskRow from './index.vue';
+import TaskRow from './TaskRowUI.vue';
 export { TaskRow };

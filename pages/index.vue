@@ -20,15 +20,15 @@ store.getTasksListAsync();
     <Row justify="center">
       <TaskFilters />
     </Row>
-    <LayoutContent>
+    <LayoutContent class="content">
       <Row :gutter="[0, 20]" justify="center">
         <Spin v-if="isListLoading" size="large" />
         <Empty v-else-if="isTasksListEmpty" description="No tasks found" />
-        <template v-else v-for="task in filteredTasks" :key="task.id">
+        <template v-else v-for="task in filteredTasks" :key="task?.id">
           <Col :span="24">
-            <TaskRow :data="task" :titleHref="`/${task.id}`">
-              <template v-slot:before>
-                <ToggleTask :taskId='task.id' :withStatus='false' />
+            <TaskRow :data="task" :titleHref="`/task-details/${task?.id}`">
+              <template #before>
+                <ToggleTask :data="task" />
               </template>
             </TaskRow>
           </Col>
@@ -39,5 +39,7 @@ store.getTasksListAsync();
 </template>
 
 <style scoped lang="scss">
-.color {}
+.content {
+  margin: 40px;
+}
 </style>

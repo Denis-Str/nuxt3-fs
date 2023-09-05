@@ -8,9 +8,11 @@ import { Layout, Row, TypographyTitle } from 'ant-design-vue';
 
 <template>
   <Layout class="default-layout-component">
-    <Row justify="center">
-      <TypographyTitle :level="1">Tasks list</TypographyTitle>
-    </Row>
+    <Layout class="default-layout-component">
+      <Row justify="center" class="toolbar">
+        <TypographyTitle :level="1">Tasks list</TypographyTitle>
+      </Row>
+    </Layout>
     <slot />
   </Layout>
 </template>
@@ -18,5 +20,9 @@ import { Layout, Row, TypographyTitle } from 'ant-design-vue';
 <style scoped>
 .default-layout-component {
   min-height: 100%;
+
+  .toolbar {
+    margin-top: 40px;
+  }
 }
 </style>
