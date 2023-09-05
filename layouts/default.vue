@@ -1,5 +1,5 @@
 <script setup>
-import { Layout, Row, TypographyTitle } from 'ant-design-vue';
+import { Layout, LayoutContent, Row, TypographyTitle } from 'ant-design-vue';
 
   useHead({
   title: 'Nuxt 3 FSD',
@@ -8,11 +8,11 @@ import { Layout, Row, TypographyTitle } from 'ant-design-vue';
 
 <template>
   <Layout class="default-layout-component">
-    <Layout class="default-layout-component">
+    <LayoutContent class="default-layout-component">
       <Row justify="center" class="toolbar">
         <TypographyTitle :level="1">Tasks list</TypographyTitle>
       </Row>
-    </Layout>
+    </LayoutContent>
     <slot />
   </Layout>
 </template>

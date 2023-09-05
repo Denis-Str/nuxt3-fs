@@ -6,12 +6,11 @@ import { TaskFilters } from '@/features/task/task-filters';
 import { ToggleTask } from '@/features/task/task-toggle';
 
 const taskStore = taskModel.useTaskStore();
-const isListLoading = computed(() => taskStore.isListLoading)
+taskStore.getTasksListAsync();
+
+const isListLoading = computed(() => taskStore.isListLoading);
 const isTasksListEmpty = computed(() => taskStore.isTasksListEmpty);
 const filteredTasks = computed(() => taskStore.filteredTasks)
-
-const store = taskModel.useTaskStore();
-store.getTasksListAsync();
 
 </script>
 

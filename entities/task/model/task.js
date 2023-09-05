@@ -10,6 +10,7 @@ export const normalizeTasks = data => normalize(data, [taskSchema]);
 export const useTaskStore = defineStore('task', {
   state: () => ({
     data: [],
+    task: {},
     isListLoading: false,
     isDetailsLoading: false,
     queryConfig: {
@@ -34,14 +35,14 @@ export const useTaskStore = defineStore('task', {
       }
     },
     async getTaskByIdAsync(taskId) {
-      this.isListLoading = true;
+      this.isDetailsLoading = true;
       try {
-        const data = await typicodeApi.tasks.getTaskById(taskId);
-        console.log(data);
+        // this.task = await typicodeApi.tasks.getTaskById(taskId);
+        this.task = normalizeTask(await typicodeApi.tasks.getTaskById(taskId)).entities['tasks'];
       } catch (e) {
         console.log(e);
       } finally {
-        this.isListLoading = false;
+        this.isDetailsLoading = false;
       }
     },
     toggleTask(task) {

@@ -29,7 +29,7 @@ const isTaskCompleted = computed(() => task.value.completed)
     <div class="margin-before">
       <slot name="before" />
     </div>
-    <RouterLink v-if="titleHref" :to="titleHref">{{data?.title}}</RouterLink>
+    <NuxtLink v-if="titleHref" :to="titleHref">{{data?.title}}</NuxtLink>
     <span v-else>{{data?.title}}</span>
   </Row>
 </template>
