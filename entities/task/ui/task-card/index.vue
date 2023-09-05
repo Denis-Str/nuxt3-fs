@@ -20,10 +20,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <Card
-    :title="`Task# ${props.data.id || ''}`"
-    :class="root"
-  >
+  <Card :title="`Task# ${props.data.id || ''}`" class="root">
     <NuxtLink v-if="titleHref" :to="titleHref">{{props.data?.title}}</NuxtLink>
     <span v-else>{{props.data?.title}}</span>
     <slot />

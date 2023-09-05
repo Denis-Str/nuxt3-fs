@@ -3,7 +3,6 @@ import {normalize, schema} from 'normalizr';
 import {typicodeApi} from '@/shared/api';
 
 export const taskSchema = new schema.Entity('tasks');
-export const normalizeTask = data => normalize(data, taskSchema);
 export const normalizeTasks = data => normalize(data, [taskSchema]);
 
 
@@ -37,19 +36,21 @@ export const useTaskStore = defineStore('task', {
     async getTaskByIdAsync(taskId) {
       this.isDetailsLoading = true;
       try {
-        // this.task = await typicodeApi.tasks.getTaskById(taskId);
-        this.task = normalizeTask(await typicodeApi.tasks.getTaskById(taskId)).entities['tasks'];
+        this.task = await typicodeApi.tasks.getTaskById(taskId);
       } catch (e) {
         console.log(e);
       } finally {
         this.isDetailsLoading = false;
       }
     },
-    toggleTask(task) {
-      this.data = {
-        ...this.data,
-        [task.id]: {...task, completed: !task.completed}
-      };
+    toggleTask(task, detail= false) {
+      if (detail) this.task = { ...task, completed: !task.completed };
+      else {
+        this.data = {
+          ...this.data,
+          [task.id]: {...task, completed: !task.completed}
+        };
+      }
     }
   }
 })

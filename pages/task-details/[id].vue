@@ -31,10 +31,10 @@ const isDetailsLoading = computed(() => taskStore.isDetailsLoading);
         size="default"
         :loading="isDetailsLoading"
         class="card"
-        :bodyStyle="{height: 400}"
+        :bodyStyle="{ height: 400 }"
       >
         <template #actions>
-          <ToggleTask :data="taskStore?.task" />
+          <ToggleTask :data="taskStore?.task" detail />
         </template>
         <template #extra>
           <NuxtLink to="/">Back to tasks list</NuxtLink>
@@ -45,10 +45,6 @@ const isDetailsLoading = computed(() => taskStore.isDetailsLoading);
 </template>
 
 <style scoped>
-.root {
-  min-height: 100%;
-}
-
 .content {
   display: flex;
   align-items: center;

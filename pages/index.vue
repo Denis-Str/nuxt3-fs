@@ -1,5 +1,5 @@
 <script setup>
-import { LayoutContent, Row, Col, Spin, Empty } from 'ant-design-vue';
+import { Layout, Row, Col, Spin, Empty } from 'ant-design-vue';
 
 import { taskModel, TaskRow } from '@/entities/task';
 import { TaskFilters } from '@/features/task/task-filters';
@@ -19,7 +19,7 @@ const filteredTasks = computed(() => taskStore.filteredTasks)
     <Row justify="center">
       <TaskFilters />
     </Row>
-    <LayoutContent class="content">
+    <Layout class="content">
       <Row :gutter="[0, 20]" justify="center">
         <Spin v-if="isListLoading" size="large" />
         <Empty v-else-if="isTasksListEmpty" description="No tasks found" />
@@ -33,12 +33,13 @@ const filteredTasks = computed(() => taskStore.filteredTasks)
           </Col>
         </template>
       </Row>
-    </LayoutContent>
+    </Layout>
   </NuxtLayout>
 </template>
 
 <style scoped lang="scss">
 .content {
   margin: 40px;
+  flex: 1;
 }
 </style>

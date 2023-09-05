@@ -12,17 +12,24 @@ const props = defineProps({
       title: '',
       value: '',
     }),
+  },
+  detail: {
+    type: Boolean,
+    default: false,
   }
 });
-const task = computed(() => taskStore.data[props.data.id]);
-const isTaskCompleted = computed(() => task.value.completed);
-const status = computed(() => taskLib.getTaskStatus(task.value.completed));
-const onToggleTask = () => taskStore.toggleTask({ ...props.data });
+const task = computed(() => props.detail ? taskStore.task : taskStore.data[props.data.id]);
+const isTaskCompleted = computed(() => task.value?.completed);
+const status = computed(() => taskLib.getTaskStatus(task.value?.completed));
+const onToggleTask = () => taskStore.toggleTask({ ...props.data }, props.detail);
 </script>
 
 <template>
   <Checkbox @click="onToggleTask" :checked="isTaskCompleted">
-    <template v-if="isTaskCompleted">{{status}}</template>
+    <template v-if="detail">{{ status }}</template>
+    <template v-else>
+      <div v-if="isTaskCompleted">{{status}}</div>
+    </template>
   </Checkbox>
 </template>
 

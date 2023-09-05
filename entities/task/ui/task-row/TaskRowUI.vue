@@ -25,7 +25,7 @@ const isTaskCompleted = computed(() => task.value.completed)
 </script>
 
 <template>
-  <Row :class="['root', { 'completed': isTaskCompleted }]">
+  <Row :class="['root', { completed: isTaskCompleted }]">
     <div class="margin-before">
       <slot name="before" />
     </div>
@@ -36,6 +36,8 @@ const isTaskCompleted = computed(() => task.value.completed)
 
 <style scoped>
 .root {
+  display: flex;
+  align-items: center;
   background: #fff;
   padding: 20px;
   transition: 0.25s;
