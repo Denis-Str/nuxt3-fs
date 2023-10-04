@@ -8,11 +8,11 @@ export const useTaskStore = defineStore('task', () => {
   let list = ref([]);
   let task = ref({ id: null });
   let isListLoading = ref(false);
-  const queryConfig = { completed: null };
+  let queryConfig = ref({ completed: null });
 
   const isTasksListEmpty = computed(() => list.value.length === 0);
   const filteredTasks = computed(() => {
-    return Object.values(list.value).filter((task) => (queryConfig.completed === null || task?.completed === queryConfig.completed))
+    return Object.values(list.value).filter((task) => (queryConfig.value.completed === null || task?.completed === queryConfig.value.completed))
   })
 
   const getTasksListAsync = async () => {

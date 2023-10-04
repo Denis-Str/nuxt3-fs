@@ -7,7 +7,7 @@ const taskStore = taskModel.useTaskStore();
 const isListLoading = computed(() => taskStore.isListLoading);
 const defaultFilter = ref(DEFAULT_FILTER);
 
-const onFilterClick = (id) => taskStore.$patch({ queryConfig: getFilterById(id).config });
+const onFilterClick = (id) => taskStore.queryConfig = getFilterById(id).config;
 
 </script>
 
