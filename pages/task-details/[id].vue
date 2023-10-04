@@ -3,10 +3,8 @@ import { LayoutContent, Result, Button, Spin } from 'ant-design-vue';
 import { TaskCard, taskModel } from '@/entities/task';
 import { ToggleTask } from '@/features/task/task-toggle';
 
-const route = useRoute();
-const taskId = route.params.id;
 const taskStore = taskModel.useTaskStore();
-taskStore.getTaskByIdAsync(taskId);
+taskStore.getTaskByIdAsync();
 
 const isDetailsLoading = computed(() => taskStore.isDetailsLoading);
 

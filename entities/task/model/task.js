@@ -1,56 +1,55 @@
 import {defineStore} from 'pinia';
 import {normalize, schema} from 'normalizr';
-import {typicodeApi} from '@/shared/api';
 
 export const taskSchema = new schema.Entity('tasks');
 export const normalizeTasks = data => normalize(data, [taskSchema]);
 
+export const useTaskStore = defineStore('task', () => {
+  let list = ref([]);
+  let task = ref({ id: null });
+  let isListLoading = ref(false);
+  const queryConfig = { completed: null };
 
-export const useTaskStore = defineStore('task', {
-  state: () => ({
-    data: [],
-    task: {},
-    isListLoading: false,
-    isDetailsLoading: false,
-    queryConfig: {
-      completed: null
-    },
-  }),
-  getters: {
-    isTasksListEmpty: (state) => state.data.length === 0,
-    filteredTasks: (state) => Object.values(state.data).filter((task) => (
-      state.queryConfig.completed === null || task?.completed === state.queryConfig.completed
-    )),
-  },
-  actions: {
-    async getTasksListAsync() {
-      this.isListLoading = true;
-      try {
-        this.data = normalizeTasks(await typicodeApi.tasks.getTasksList()).entities['tasks'];
-      } catch (e) {
-        console.log(e);
-      } finally {
-        this.isListLoading = false;
-      }
-    },
-    async getTaskByIdAsync(taskId) {
-      this.isDetailsLoading = true;
-      try {
-        this.task = await typicodeApi.tasks.getTaskById(taskId);
-      } catch (e) {
-        console.log(e);
-      } finally {
-        this.isDetailsLoading = false;
-      }
-    },
-    toggleTask(task, detail= false) {
-      if (detail) this.task = { ...task, completed: !task.completed };
-      else {
-        this.data = {
-          ...this.data,
-          [task.id]: {...task, completed: !task.completed}
-        };
-      }
+  const isTasksListEmpty = computed(() => list.value.length === 0);
+  const filteredTasks = computed(() => {
+    return Object.values(list.value).filter((task) => (queryConfig.completed === null || task?.completed === queryConfig.completed))
+  })
+
+  const getTasksListAsync = async () => {
+    try {
+      isListLoading.value = true;
+      const { data} = await useFetch('/api/typicode/todos');
+      const normalizeData = toRaw(data.value);
+      // console.log(normalizeTasks(normalizeData).entities['tasks'])
+      list.value = normalizeTasks(normalizeData).entities['tasks'];
+    } catch (e) {
+      console.log(e);
+    } finally {
+      isListLoading.value = false;
     }
   }
+
+  const getTaskByIdAsync = async () => {
+    try {
+      const route = useRoute();
+      const {id} = route.params;
+      const {data} = await useFetch(`/api/typicode/todos/${id}`);
+      task = data.value;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  const toggleTask = (currentTask, detail = false) => {
+    if (detail) task = {...currentTask, completed: !currentTask.completed};
+    else {
+      list = {
+        ...list,
+        [task.id]: {...currentTask, completed: !currentTask.completed}
+      };
+    }
+  }
+
+
+  return {list, task, queryConfig, filteredTasks, isListLoading, isTasksListEmpty, getTasksListAsync, getTaskByIdAsync, toggleTask}
 })

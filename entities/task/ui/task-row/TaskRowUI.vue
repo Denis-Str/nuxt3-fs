@@ -19,8 +19,8 @@ const props = defineProps({
   }
 });
 const { data, titleHref } = props;
-const task = computed(() => taskStore.data[props.data.id]);
-const isTaskCompleted = computed(() => task.value.completed)
+const task = computed(() => taskStore.list[props.data.id]);
+const isTaskCompleted = computed(() => task.value?.completed)
 
 </script>
 

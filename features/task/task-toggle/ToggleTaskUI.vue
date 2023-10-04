@@ -18,7 +18,7 @@ const props = defineProps({
     default: false,
   }
 });
-const task = computed(() => props.detail ? taskStore.task : taskStore.data[props.data.id]);
+const task = computed(() => props.detail ? taskStore.task : taskStore.list[props.data.id]);
 const isTaskCompleted = computed(() => task.value?.completed);
 const status = computed(() => taskLib.getTaskStatus(task.value?.completed));
 const onToggleTask = () => taskStore.toggleTask({ ...props.data }, props.detail);
