@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@pinia/nuxt'],
 // @ts-ignore
-  css: ['@/assets/styles/index.scss'],
+  css: ['@/fsd/app/styles/index.scss'],
   nitro: {
     devProxy: {
       '/typicodeApi': {

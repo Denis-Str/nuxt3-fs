@@ -1,6 +1,6 @@
 <script setup>
 import { RadioButton, RadioGroup } from 'ant-design-vue';
-import { taskModel } from '@/entities/task';
+import { taskModel } from '~/fsd/entities/task';
 import { filtersList, getFilterById, DEFAULT_FILTER } from './config';
 
 const taskStore = taskModel.useTaskStore();

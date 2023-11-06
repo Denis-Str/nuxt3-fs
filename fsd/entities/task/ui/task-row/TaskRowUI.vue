@@ -1,6 +1,6 @@
 <script setup>
 import { Row } from 'ant-design-vue';
-import { taskModel } from '@/entities/task';
+import { taskModel } from '~/fsd/entities/task';
 const taskStore = taskModel.useTaskStore();
 
 const props = defineProps({

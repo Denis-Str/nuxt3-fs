@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Checkbox } from 'ant-design-vue';
-import { taskModel, taskLib } from '@/entities/task';
+import { taskModel, taskLib } from '~/fsd/entities/task';
 const taskStore = taskModel.useTaskStore();
 
 const props = defineProps({
