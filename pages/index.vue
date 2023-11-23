@@ -1,5 +1,5 @@
 <script setup>
-import indexPage from '~/fsd/pages/indexPage.vue';
+import indexPage from '~/fsd/pages/index/indexPage.vue';
 </script>
 
 <template>
